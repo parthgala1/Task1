@@ -21,9 +21,10 @@ export default function BasicTable() {
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     // console.log(filteredData);
+    // console.log(page);
 
     const downloadSheet = () => {
-        const worksheet = XLSX.utils.json_to_sheet(filteredData);
+        const worksheet = XLSX.utils.json_to_sheet(filteredData.slice((page - 1) * rowsPerPage, page * rowsPerPage));
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, 'data');
         XLSX.writeFile(workbook, 'data.csv');
@@ -37,20 +38,31 @@ export default function BasicTable() {
 
         setFilteredData(filteredItems);
     }
-    console.log('Search: ', search);
+    // console.log('Search: ', search);
 
+    const handlePageChange = (page) => {
+        setPage(page); // Update the current page state with the clicked page number
+    }
 
     return (
 
         <div className='flex flex-col justify-center items-center w-full'>
             <div className=' font-monsterrat text-6xl text-white'>Tabular Data</div>
+
+            {/* Rows */}
             <h1 className='mt-7 text-white font-monsterrat text-xl'>Rows Per Page</h1>
             <input type="number" name="search" placeholder='' value={rowsPerPage} onChange={(e) => setRowsPerPage(e.target.value)} className='mb-5 px-3 py-1 rounded-lg' />
-            <input type="text" name="search" placeholder='Search' value={search} onChange={handleChange} className='my-5 px-3 py-1 rounded-lg' />
+
+            {/* Search Field */}
+            <input type="text" name="search" placeholder='Search by Brand' value={search} onChange={handleChange} className='my-5 px-3 py-1 rounded-lg' />
+
+            {/* Download Button */}
             <div className='w-4/5 h-4/5 flex flex-col items-center\ justify-center '>
                 <div>
                     <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold mb-12 py-2 px-4 rounded' onClick={downloadSheet}>Download</button>
                 </div>
+
+                {/* Table using Material UI */}
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: 1530, maxHeight: 1000 }} aria-label="simple table">
                         <TableHead>
@@ -65,6 +77,8 @@ export default function BasicTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
+
+                            {/* Loading Functionality */}
                             {loading ?
                                 <TableRow>
                                     <TableCell align='center'>
@@ -86,21 +100,23 @@ export default function BasicTable() {
                                 :
                                 <>
                                     {
-                                        filteredData.map((row) => (
-                                            <TableRow
-                                                key={row.id}
-                                            >
-                                                {/* <TableCell align="right">{row.brand}</TableCell> */}
-                                                <TableCell align="center">{row.id}</TableCell>
-                                                <TableCell align='center' >{row.brand}</TableCell>
-                                                <TableCell align="center">{row.title}</TableCell>
-                                                <TableCell align="left">{row.description}</TableCell>
-                                                <TableCell align="center">{row.price}</TableCell>
-                                                {/* <TableCell align="right">
+                                        filteredData
+                                            .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                                            .map((row) => (
+                                                <TableRow
+                                                    key={row.id}
+                                                >
+                                                    {/* <TableCell align="right">{row.brand}</TableCell> */}
+                                                    <TableCell align="center">{row.id}</TableCell>
+                                                    <TableCell align='center' >{row.brand}</TableCell>
+                                                    <TableCell align="center">{row.title}</TableCell>
+                                                    <TableCell align="left">{row.description}</TableCell>
+                                                    <TableCell align="center">{row.price}</TableCell>
+                                                    {/* <TableCell align="right">
                                         <img className='size-48' src={row.thumbnail} alt="" />
                                     </TableCell> */}
-                                            </TableRow>
-                                        ))
+                                                </TableRow>
+                                            ))
                                     }
                                 </>
                             }
@@ -109,7 +125,7 @@ export default function BasicTable() {
                 </TableContainer>
             </div>
             <div>
-                <Pagination count={10} length={products.length} rowsPerPage={rowsPerPage} />
+                <Pagination count={10} length={products.length} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} />
             </div>
         </div>
     );

@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <div className='flex justify-center items-center bg-blue-400 p-12'>
+      <div className='flex justify-center items-center min-h-screen bg-blue-400 p-12'>
         <Form />
       </div>
     </>
