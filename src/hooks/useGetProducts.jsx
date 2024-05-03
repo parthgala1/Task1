@@ -24,6 +24,9 @@ export const useGetProducts = () => {
                 setLoading(false);
             }
         }
+
+
+
         getProducts();
     }, []);
 

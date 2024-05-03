@@ -13,7 +13,7 @@ const Pagination = ({ length, rowsPerPage, onPageChange }) => {
     }
 
     return (
-        <div className='my-12 p-2 rounded-full bg-blue-600'>
+        <div className='my-12 p-2 rounded-full w-full flex justify-center bg-blue-600'>
             {pageNumbers.map((number) => (
                 <button key={number} onClick={handleClick} className='px-3 py-1 mx-2 bg-blue-500 text-white rounded-full'>
                     {number}

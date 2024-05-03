@@ -61,71 +61,74 @@ export default function BasicTable() {
                 </div>
 
                 {/* Table using Material UI */}
-                <TableContainer component={Paper}>
-                    <Table sx={{ maxWidth: 1530, maxHeight: 1000 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align='center'>Sr. No.</TableCell>
-                                <TableCell align='center'>Brand</TableCell>
-                                <TableCell align='center'>Name</TableCell>
-                                <TableCell align='center'>Description</TableCell>
-                                {/* <TableCell align='center'>Image</TableCell> */}
-                                <TableCell align='center'>Price&nbsp;(₹)</TableCell>
-                                {/* <TableCell align='center'>Thumbnail</TableCell> */}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+                <div className=''>
 
-                            {/* Loading Functionality */}
-                            {loading ?
+                    <TableContainer component={Paper}>
+                        <Table sx={{ maxWidth: 1530, maxHeight: 1000 }} aria-label="simple table">
+                            <TableHead>
                                 <TableRow>
-                                    <TableCell align='center'>
-                                        <Skeleton variant="text" width={100} />
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <Skeleton variant="text" width={100} />
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <Skeleton variant="text" width={100} />
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <Skeleton variant="text" width={100} />
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <Skeleton variant="text" width={100} />
-                                    </TableCell>
+                                    <TableCell align='center'>Sr. No.</TableCell>
+                                    <TableCell align='center'>Brand</TableCell>
+                                    <TableCell align='center'>Name</TableCell>
+                                    <TableCell align='center'>Description</TableCell>
+                                    {/* <TableCell align='center'>Image</TableCell> */}
+                                    <TableCell align='center'>Price&nbsp;(₹)</TableCell>
+                                    {/* <TableCell align='center'>Thumbnail</TableCell> */}
                                 </TableRow>
-                                :
-                                <>
-                                    {
-                                        filteredData
-                                            .slice((page - 1) * rowsPerPage, page * rowsPerPage)
-                                            .map((row) => (
-                                                <TableRow
-                                                    key={row.id}
-                                                >
-                                                    {/* <TableCell align="right">{row.brand}</TableCell> */}
-                                                    <TableCell align="center">{row.id}</TableCell>
-                                                    <TableCell align='center' >{row.brand}</TableCell>
-                                                    <TableCell align="center">{row.title}</TableCell>
-                                                    <TableCell align="left">{row.description}</TableCell>
-                                                    <TableCell align="center">{row.price}</TableCell>
-                                                    {/* <TableCell align="right">
+                            </TableHead>
+                            <TableBody>
+
+                                {/* Loading Functionality */}
+                                {loading ?
+                                    <TableRow>
+                                        <TableCell align='center'>
+                                            <Skeleton variant="text" width={100} />
+                                        </TableCell>
+                                        <TableCell align='center'>
+                                            <Skeleton variant="text" width={100} />
+                                        </TableCell>
+                                        <TableCell align='center'>
+                                            <Skeleton variant="text" width={100} />
+                                        </TableCell>
+                                        <TableCell align='center'>
+                                            <Skeleton variant="text" width={100} />
+                                        </TableCell>
+                                        <TableCell align='center'>
+                                            <Skeleton variant="text" width={100} />
+                                        </TableCell>
+                                    </TableRow>
+                                    :
+                                    <>
+                                        {
+                                            filteredData
+                                                .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                                                .map((row) => (
+                                                    <TableRow
+                                                        key={row.id}
+                                                    >
+                                                        {/* <TableCell align="right">{row.brand}</TableCell> */}
+                                                        <TableCell align="center">{row.id}</TableCell>
+                                                        <TableCell align='center' >{row.brand}</TableCell>
+                                                        <TableCell align="center">{row.title}</TableCell>
+                                                        <TableCell align="left">{row.description}</TableCell>
+                                                        <TableCell align="center">{row.price}</TableCell>
+                                                        {/* <TableCell align="right">
                                         <img className='size-48' src={row.thumbnail} alt="" />
                                     </TableCell> */}
-                                                </TableRow>
-                                            ))
-                                    }
-                                </>
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                                    </TableRow>
+                                                ))
+                                        }
+                                    </>
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
             </div>
-            <div>
+            <div className='flex flex-col justify-center items-center'>
                 {/* Rows */}
                 <h1 className='mt-7 text-white font-monsterrat text-xl'>Rows Per Page</h1>
-                <input type="number" name="search" placeholder='' value={rowsPerPage} onChange={(e) => setRowsPerPage(e.target.value)} className='mb-5 px-3 py-1 rounded-lg flex justify-center items-center' />
+                <input type="number" name="search" placeholder='' value={rowsPerPage} onChange={(e) => setRowsPerPage(e.target.value)} className='mb-5 w-20 px-3 py-1 rounded-lg flex justify-center items-center' />
                 <Pagination count={10} length={products.length} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} />
             </div>
         </div>
