@@ -49,9 +49,7 @@ export default function BasicTable() {
         <div className='flex flex-col justify-center items-center w-full'>
             <div className=' font-monsterrat text-6xl text-white'>Tabular Data</div>
 
-            {/* Rows */}
-            <h1 className='mt-7 text-white font-monsterrat text-xl'>Rows Per Page</h1>
-            <input type="number" name="search" placeholder='' value={rowsPerPage} onChange={(e) => setRowsPerPage(e.target.value)} className='mb-5 px-3 py-1 rounded-lg' />
+
 
             {/* Search Field */}
             <input type="text" name="search" placeholder='Search by Brand' value={search} onChange={handleChange} className='my-5 px-3 py-1 rounded-lg' />
@@ -125,6 +123,9 @@ export default function BasicTable() {
                 </TableContainer>
             </div>
             <div>
+                {/* Rows */}
+                <h1 className='mt-7 text-white font-monsterrat text-xl'>Rows Per Page</h1>
+                <input type="number" name="search" placeholder='' value={rowsPerPage} onChange={(e) => setRowsPerPage(e.target.value)} className='mb-5 px-3 py-1 rounded-lg flex justify-center items-center' />
                 <Pagination count={10} length={products.length} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} />
             </div>
         </div>
