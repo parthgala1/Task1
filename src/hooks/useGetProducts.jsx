@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export const useGetProducts = () => {
     const [products, setProducts] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,9 +14,10 @@ export const useGetProducts = () => {
                     headers: { "Content-Type": "application/json" },
                 });
                 const data = await response.json();
-                console.log('Data: ', (data));
+                // console.log('Data: ', (data));
                 setProducts(data.products);
-                console.log('Products: ', products);
+                setFilteredData(data.products);
+                // console.log('Products: ', products);
                 setLoading(false);
             } catch (error) {
                 console.log('Error: ', error);
@@ -25,5 +27,5 @@ export const useGetProducts = () => {
         getProducts();
     }, []);
 
-    return { products, loading };
+    return { products, filteredData, setFilteredData, loading };
 }

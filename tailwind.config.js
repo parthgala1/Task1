@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         audiowide: ["Audiowide", "sans-serif"],
+        monsterrat: ["Montserrat", "sans-serif"],
       },
     },
   },
